@@ -1,0 +1,30 @@
+{:deps     {:aliases [:dev :test]}
+ :nrepl    {:port 9000}
+ :jvm-opts ["-Xmx2G"]
+ :builds   {:native-web {:target     :react-native
+                         :init-fn    app.example.client-native/init
+                         :output-dir "expo_app/app"
+                         :dev        {:closure-defines  {'goog.DEBUG true}
+                                      :compiler-options {:external-config {:guardrails {}}}}
+                         :js-options {;; Specify the package dirs so that the compiler can find the component files
+                                      :js-package-dirs ["expo_app/node_modules" "expo_app/components"]}
+                         :devtools   {:autoload   true
+                                      :reload-strategy :full
+                                      :after-load app.example.client-native/start
+                                      :preloads   [shadow.expo.keep-awake
+                                                   com.fulcrologic.devtools.chrome-preload]}}
+
+            :native     {:target     :react-native
+                         :init-fn    app.example.client-native/init
+                         :output-dir "expo_app/app"
+                         :dev        {:closure-defines  {'goog.DEBUG true}
+                                      :compiler-options {:external-config {:guardrails {}}}}
+                         :js-options {;; Specify the package dirs so that the compiler can find the component files
+                                      :js-package-dirs ["expo_app/node_modules" "expo_app/components"]}
+                         :devtools   {:autoload   true
+                                      :reload-strategy :full
+                                      :after-load app.example.client-native/start
+                                      :preloads   [shadow.expo.keep-awake
+                                                   com.fulcrologic.devtools.electron-preload]}}}}
+
+
