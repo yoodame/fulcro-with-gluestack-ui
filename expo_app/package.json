@@ -1,0 +1,47 @@
+{
+  "name": "expo_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "DARK_MODE=media expo start --android",
+    "ios": "DARK_MODE=media expo start --ios",
+    "web": "DARK_MODE=media expo start --web",
+    "build:js": "babel ./components -d ./components --extensions .ts,.tsx",
+    "watch:js": "babel ./components -d ./components --watch --extensions .ts,.tsx"
+  },
+  "dependencies": {
+    "@expo/html-elements": "^0.4.2",
+    "@gluestack-ui/alert": "^0.1.16",
+    "@gluestack-ui/button": "^1.0.8",
+    "@gluestack-ui/icon": "^0.1.25",
+    "@gluestack-ui/nativewind-utils": "^1.0.26",
+    "@gluestack-ui/overlay": "^0.1.16",
+    "@gluestack-ui/toast": "^1.0.8",
+    "@js-joda/core": "^5.6.4",
+    "@js-joda/timezone": "^2.21.2",
+    "@types/react": "~18.3.12",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "big.js": "^6.2.2",
+    "create-react-class": "^15.7.0",
+    "expo": "~52.0.25",
+    "expo-splash-screen": "~0.29.20",
+    "expo-status-bar": "~2.0.1",
+    "nativewind": "^4.1.23",
+    "react": "18.3.1",
+    "react-dom": "^19.0.0",
+    "react-native": "0.76.6",
+    "react-native-css-interop": "^0.1.22",
+    "react-native-reanimated": "^3.16.7",
+    "react-native-safe-area-context": "^5.1.0",
+    "react-native-svg": "^15.2.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.20.0",
+    "jscodeshift": "^0.15.2"
+  },
+  "private": true
+}

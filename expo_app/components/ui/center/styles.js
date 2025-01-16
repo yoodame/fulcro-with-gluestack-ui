@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.centerStyle=void 0;var _tva=require("@gluestack-ui/nativewind-utils/tva");var _IsWeb=require("@gluestack-ui/nativewind-utils/IsWeb");var baseStyle=_IsWeb.isWeb?'flex flex-col relative z-0':'';var centerStyle=exports.centerStyle=(0,_tva.tva)({base:`justify-center items-center ${baseStyle}`});
