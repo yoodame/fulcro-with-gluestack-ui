@@ -4,10 +4,10 @@ This repository serves as a guide for developers who want to use [gluestack-ui](
 
 ## Table of Contents
 - [Setup Expo with Gluestack UI](#setup-expo-with-gluestack-ui)
-- [Fulcro with Gluestack UI](#fulcro-with-gluestack-ui)
+- [Setup Fulcro with Gluestack UI](#setup-fulcro-with-gluestack-ui)
 - [License](#license)
 
-<img src="img.png" alt="img.png" style="max-height: 300px;">
+[<img src="img.png" alt="img.png" width="250">](img.png)
 
 ## Setup Expo with Gluestack UI:
 I prefer to create a separate `./expo_app` directory to house all things expo and gluestack. It makes it easier to manage the project structure and dependencies.
@@ -60,7 +60,7 @@ npm run build:js
 "web": "DARK_MODE=class expo start --web"
 ```
 
-## Fulcro with Gluestack UI:
+## Setup Fulcro with Gluestack UI:
 
 With a working expo app, we can connect our Fulcro app to Expo and begin importing the Gluestack components. 
 
