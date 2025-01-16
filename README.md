@@ -2,9 +2,15 @@
 
 This repository serves as a guide for developers who want to use [gluestack-ui](https://gluestack.io/ui/docs/home/overview/quick-start) in their Fulcro projects. The setup steps below can be applied to a new or existing React Native Fulcro project.
 
+## Table of Contents
+- [Setup Expo with Gluestack UI](#setup-expo-with-gluestack-ui)
+- [Fulcro with Gluestack UI](#fulcro-with-gluestack-ui)
+- [License](#license)
+
+<img src="img.png" alt="img.png" style="max-height: 300px;">
+
 ## Setup Expo with Gluestack UI:
-I prefer to create a separate `./expo_app` directory to house all things expo and gluestack. It 
-makes it easier to manage the project structure and dependencies.
+I prefer to create a separate `./expo_app` directory to house all things expo and gluestack. It makes it easier to manage the project structure and dependencies.
 
 > Note: You are not limitted to using Expo. You can use a regular React Native project setup or Next.js. For the purpose of this guide, we will use Expo.
 
@@ -15,13 +21,13 @@ cd expo_app
 npx gluestack-ui init
 ```
 
-2. Install Expo dependencies. We will install these via expo so things are properly linked (`npx expo install ...`):
+2. Install Expo dependencies. We will install these via expo so things are properly linked:
 ```shell
 npx expo install expo-splash-screen
 npx expo install expo-status-bar
 ```
 
-3. Gluestack uses Typescript so we will have to configure Expo to work with Typescript and transpile files to CommonJS. Read more about [using TypeScript with Expo](https://docs.expo.dev/guides/typescript/).
+3. Gluestack uses Typescript so we will have to configure Expo to work with TypeScript and transpile files to CommonJS. Read more about [using TypeScript with Expo](https://docs.expo.dev/guides/typescript/).
 
 > Hat-tip: Consider adding components/**/*.tsx and components/**/*.ts files in your `expo_app/.gitignore` file to avoid clutter. Also, add `app/` to avoid committing the shadow-cljs compiled files.
 
@@ -75,7 +81,7 @@ npm install --save-dev shadow-cljs
 2. Setup dependencies and shadow-cljs. Reference the `deps.edn` and `shadow-cljs.edn` files in this repo. Take note of the `:js-options` config in shadow. It is needed to specify the package dirs so that the compiler can find the component files.
 ```clojure
 :js-options {;; Specify the package dirs so that the compiler can find the component files
-                                      :js-package-dirs ["expo_app/node_modules" "expo_app/components"]}
+             :js-package-dirs ["expo_app/node_modules" "expo_app/components"]}
 ```
 
 3. Create the Fulcro client app. We are going to use `com.fulcrologic/fulcro-native/fulcro-app` to create the client app. It handles all the necessary additional configurations needed to work with Native apps. See the `./src/main/app.example/client_native.cljs` file for full example.
@@ -85,11 +91,10 @@ npm install --save-dev shadow-cljs
     [com.fulcrologic.fulcro-native.expo-application :as expoapp]
     [com.fulcrologic.fulcro.application :as app]))
     
-(defonce app (expoapp/fulcro-app {;:cached-images    resources/images
-                               ;:cached-fonts     resources/fonts
-                               :client-did-mount (fn [app] (log/info "Client did mount"))
-                               :remotes {:remote (net/fulcro-http-remote {:url "http://localhost:3000/api"
-                                                                          :request-middleware (rad-app/secured-request-middleware nil)})}}))
+(defonce app (expoapp/fulcro-app {:client-did-mount (fn [app] (log/info "Client did mount"))
+                                  :remotes {:remote (net/fulcro-http-remote 
+                                                      {:url "http://localhost:3000/api"
+                                                       :request-middleware (rad-app/secured-request-middleware nil)})}}))
 ```
 
 4. Create a `app.example.gluestack.components.ui` namespace to house the Gluestack UI components. This is where we add wrappers around our transpiled Gluestack JS component files.
@@ -150,12 +155,25 @@ npm install --save-dev shadow-cljs
           (gs/ui-button-text {} "Click me"))))))
 ```
 
-6. We are now ready to run shadow-cljs and start the Expo app. Run the following commands in separate terminals:
+6. Tailwind needs to be aware of classnames used in our fulcro components in order to apply the correct styles. Update the content array in `./expo_app/tailwind.config.js` to include clojure files. Without this step, Tailwind will not be able to apply the correct styles to the components.
+```javascript
+...
+content: [
+    "components/**/*.{tsx,jsx,ts,js}",
+    "../src/main/app/**/*.{cljc,cljs}",
+],
+```
+
+7. We are now ready to run shadow-cljs and start the Expo app. Run the following commands in separate terminals:
 ```shell
 npx shadow-cljs watch :native
 ```
 ```shell
 npm run start
 ```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 Good luck with your Fulcro and Gluestack UI project! 🚀
